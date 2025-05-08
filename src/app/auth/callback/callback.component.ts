@@ -23,17 +23,20 @@ export class CallbackComponent implements OnInit {
         if (token && role) {
           localStorage.setItem('token', token);
           localStorage.setItem('role', role);
-
+  
           if (role === 'ADMIN') {
             this.router.navigate(['/admin/dashboard']);
           } else if (role === 'MANAGER') {
             this.router.navigate(['/manager/dashboard']);
-          } else {
+          } else if (role === 'STAFF') {
             this.router.navigate(['/staff/dashboard']);
+          } else {
+            this.router.navigate(['/auth/login']);
           }
         } else {
           this.router.navigate(['/auth/login']);
-        }
+    
+        }        
       });
     }
   }

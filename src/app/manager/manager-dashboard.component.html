@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="profile">
+      <img src="https://www.gravatar.com/avatar?d=identicon" alt="Profile" />
+      <p class="role">Manager</p>
+      <p class="text-sm text-gray-500">manager&#64;localhost.com</p>
+    </div>
+    <nav>
+        <ul>
+          <li><a routerLink="/admin/employees" routerLinkActive="active"><i class="fas fa-users"></i> Employees</a></li>
+          <li><a routerLink="/admin/leave-types" routerLinkActive="active"><i class="fas fa-list"></i> Leave Types</a></li>
+          <li><a routerLink="/admin/leave-requests" routerLinkActive="active"><i class="fas fa-calendar-check"></i> Leave Requests</a></li>
+          <li><a routerLink="/admin/departments" routerLinkActive="active"><i class="fas fa-building"></i> Departments</a></li>
+        </ul>
+      </nav>
+      <button (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </aside>
+    <main class="main-content">
+      <h1>Leave Management System - Manager  Dashboard</h1>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+  </body>
+  </html>

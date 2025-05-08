@@ -1,0 +1,257 @@
+/* Layout Container */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background-color: #1a202c;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Profile Section */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.profile img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e0;
+  margin-bottom: 10px;
+}
+
+.profile .role {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.profile .text-sm.text-gray-500 {
+  font-size: 14px;
+  color: #a0aec0;
+  text-align: center;
+}
+
+/* Navigation */
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  width: 100%;
+  padding: 0;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar nav ul li a {
+  display: block;
+  width: 80%;
+  padding: 10px;
+  color: #cbd5e0;
+  text-decoration: none;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar nav ul li a.active,
+.sidebar nav ul li a:hover {
+  background-color: #4a5568;
+  color: white;
+  font-weight: bold;
+}
+
+.sidebar button {
+  width: 80%;
+  margin: 20px auto;
+  padding: 12px;
+  background-color: #0a5821;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar button:hover {
+  background-color: #0d9435;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #f7fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.main-content h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #2d3748;
+}
+
+.apply-leave,
+.leave-history,
+.leave-balance {
+  width: 100%;
+  max-width: 1100px;
+}
+
+
+.apply-leave h2,
+.leave-history h2,
+.leave-balance h2 {
+  margin-bottom: 20px;
+  color: #2d3748;
+}
+
+/* Apply Leave Form */
+.apply-leave form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 1000px;
+  padding: 16px;
+ 
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.date-row {
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 65px;
+}
+
+.form-group.date-row .form-group {
+  flex: 1;
+}
+
+.form-group label {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-group input[type="file"] {
+  padding: 6px 0;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #0f4988;
+}
+
+.cancel-btn {
+  padding: 10px 20px;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #b91c1c;
+}
+
+
+/* Tables */
+.leave-history table,
+.leave-balance table {
+  width: 1070px;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: 20px;
+}
+
+.leave-history th,
+.leave-history td,
+.leave-balance th,
+.leave-balance td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.leave-history th,
+.leave-balance th {
+  background-color: #edf2f7;
+  color: #2d3748;
+  font-weight: bold;
+}
+
+.leave-history tr:hover,
+.leave-balance tr:hover {
+  background-color: #f0f4f8;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.submit-btn,
+.cancel-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+

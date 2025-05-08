@@ -1,0 +1,23 @@
+<section class="leave-balance">
+  <h2>Leave Balance</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Leave Type</th>
+        <th>Default</th>
+        <th>Used</th>
+        <th>Remaining</th>
+        <th>Carry Over</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let balance of leaveBalance">
+        <td>{{ balance.leaveType }}</td>
+        <td>{{ balance.defaultBalance }}</td>
+        <td>{{ balance.usedLeave }}</td>
+        <td>{{ balance.balance }}</td>
+        <td>{{ balance.carryOver }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

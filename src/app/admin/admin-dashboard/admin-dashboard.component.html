@@ -1,0 +1,26 @@
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="profile">
+      <img src="https://www.gravatar.com/avatar?d=identicon" alt="Profile" />
+      <p class="role">{{ userRole }}</p>
+      <p class="text-sm text-gray-500">{{ userEmail }}</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a routerLink="employees" routerLinkActive="active">Manage Employees</a></li>
+        <li><a routerLink="/admin/leave-types" routerLinkActive="active"><i class="fas fa-approveReject"></i> Approve & Reject Leave Request</a></li>
+        <li><a routerLink="/admin/leave-requests" routerLinkActive="active"><i class="fas fa-balance"></i> Leave Balances</a></li>
+        <li><a routerLink="/admin/departments" routerLinkActive="active"><i class="fas fa-types"></i>Leave Types</a></li>
+        <li><a routerLink="/admin/departments" routerLinkActive="active"><i class="fas fa-reports"></i>Reports</a></li>
+        <li><a routerLink="/admin/departments" routerLinkActive="active"><i class="fas fa-holiday"></i>PublicHoliday</a></li>
+        <li><a routerLink="/admin/departments" routerLinkActive="active"><i class="fas fa-calendar"></i>Team Calendar</a></li>
+        <li><a routerLink="/admin/departments" routerLinkActive="active"><i class="fas fa-department"></i>Departments</a></li>
+      </ul>
+    </nav>
+    <button (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+  </aside>
+  <main class="main-content">
+    <h1>Leave Management System - Admin Dashboard</h1>
+    <router-outlet></router-outlet>
+  </main>
+</div>
