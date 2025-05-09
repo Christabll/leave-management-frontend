@@ -1,0 +1,35 @@
+<div class="employees-container">
+  <h2>Pending Leave Requests</h2>
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Leave Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of pendingRequests">
+        <td>{{ request.email }}</td>
+        <td>{{ request.leaveType }}</td>
+        <td>
+          <div class="actions">
+            <button class="btn btn-blue" (click)="viewDetails(request)">View Details</button>
+            <button class="btn btn-green" (click)="openAction('approve', request)">Approve</button>
+            <button class="btn btn-purple" (click)="openAction('reject', request)">Reject</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Comment Section -->
+  <div *ngIf="selectedRequest" class="modal">
+    <h3>{{ actionType | titlecase }} Leave Request</h3>
+    <label for="comment">Comment (required):</label>
+    <textarea id="comment" [(ngModel)]="comment" rows="3" class="form-control"></textarea>
+    <br>
+    <button class="btn btn-primary" (click)="submitAction()">Submit</button>
+    <button class="btn btn-secondary" (click)="cancelAction()">Cancel</button>
+  </div>
+</div>

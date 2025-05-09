@@ -8,14 +8,15 @@
     <nav>
       <ul>
         <li><a routerLink="employees" routerLinkActive="active">Manage Employees</a></li>
-        <li><a routerLink="/admin/leave-types" routerLinkActive="active"><i class="fas fa-approveReject"></i> Approve & Reject Leave Request</a></li>
-        <li><a routerLink="/admin/leave-requests" routerLinkActive="active"><i class="fas fa-balance"></i> Leave Balances</a></li>
-        <li><a routerLink="/admin/departments" routerLinkActive="active"><i class="fas fa-types"></i>Leave Types</a></li>
-        <li><a routerLink="/admin/departments" routerLinkActive="active"><i class="fas fa-reports"></i>Reports</a></li>
-        <li><a routerLink="/admin/departments" routerLinkActive="active"><i class="fas fa-holiday"></i>PublicHoliday</a></li>
-        <li><a routerLink="/admin/departments" routerLinkActive="active"><i class="fas fa-calendar"></i>Team Calendar</a></li>
-        <li><a routerLink="/admin/departments" routerLinkActive="active"><i class="fas fa-department"></i>Departments</a></li>
+        <li><a routerLink="approval" routerLinkActive="active">Approve & Reject Leave Request</a></li>
+        <li><a routerLink="leave-requests" routerLinkActive="active">Leave Balances</a></li>
+        <li><a routerLink="reports" routerLinkActive="active">Reports</a></li>
+        <li><a routerLink="public-holiday" routerLinkActive="active">Public Holiday</a></li>
+        <li><a routerLink="team-calendar" routerLinkActive="active">Team Calendar</a></li>
+        <li><a routerLink="departments" routerLinkActive="active">Departments</a></li>
+        <li><a routerLink="leave-types" routerLinkActive="active">Leave Types</a></li>
       </ul>
+      
     </nav>
     <button (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
   </aside>

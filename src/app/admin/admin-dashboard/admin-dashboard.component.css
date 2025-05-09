@@ -301,6 +301,112 @@
     font-size: 18px;
     color: #2d3748;
   }
+
+  h2 {
+    margin-bottom: 16px;
+    color: #2d3748;
+    font-size: 22px;
+  }
+  
+  .modal {
+    background-color: #ffffff;
+    padding: 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  
+  .inline-editor {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .inline-editor label {
+    font-weight: bold;
+    min-width: 120px;
+    color: #2d3748;
+  }
+  
+  .inline-editor input {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #cbd5e0;
+    min-width: 200px;
+  }
+  
+  .balance-summary {
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+  }
+  
+  .balance-summary h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #2d3748;
+  }
+  
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .custom-table th,
+  .custom-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .custom-table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+  }
+  
+  .btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .btn-green {
+    background-color: #2e7d32;
+  }
+  
+  .btn-green:hover {
+    background-color: #1b5e20;
+  }
+  .modal {
+    background-color: green;
+    padding: 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+
+  .floating-add-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    border-radius: 50%;
+    z-index: 1000; /* VERY IMPORTANT */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  
+  
+  
   
 
   

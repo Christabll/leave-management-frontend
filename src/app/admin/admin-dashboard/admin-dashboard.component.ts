@@ -21,8 +21,6 @@ export class AdminDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('Admin Dashboard loaded ✅');
-
     if (isPlatformBrowser(this.platformId) && this.router.url === '/admin/dashboard') {
       this.router.navigate(['/admin/dashboard/employees']);
     }

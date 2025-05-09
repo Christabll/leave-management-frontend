@@ -1,73 +1,73 @@
 <div class="employees-container">
-    <h2>Manage Employees</h2>
-  
+  <h2>Manage Employees</h2>
+
+  <!-- Users Table -->
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Department</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.email }}</td>
+        <td>{{ formatRole(user.roles[0]) }}</td>
+        <td>{{ user.department }}</td>
+        <td>
+          <div class="actions">
+            <button class="btn btn-green" (click)="toggleRoleEditor(user.id)">Update Role</button>
+            <button class="btn btn-blue" (click)="toggleDepartmentEditor(user.id)">Update Department</button>
+            <button class="btn btn-purple" (click)="viewBalance(user)">View Balance</button>
+          </div>
+
+          <div *ngIf="showRoleEditor === user.id" class="inline-editor">
+            <select [(ngModel)]="user.role">
+              <option *ngFor="let role of availableRoles" [value]="role">{{ role }}</option>
+            </select>
+            <button class="btn btn-green" (click)="confirmRoleChange(user)">Save</button>
+            <button class="btn btn-secondary" (click)="cancelRoleEdit()">Cancel</button>
+          </div>
+
+          <div *ngIf="showDepartmentEditor === user.id" class="inline-editor">
+            <select [(ngModel)]="user.department">
+              <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+            </select>
+            <button class="btn btn-blue" (click)="confirmDepartmentChange(user)">Save</button>
+            <button class="btn btn-secondary" (click)="cancelDepartmentEdit()">Cancel</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Leave Balance Summary -->
+  <div *ngIf="selectedUserBalance?.length" class="balance-summary">
+    <div class="actions" style="justify-content: flex-end; margin-bottom: 10px;">
+      <button class="btn btn-secondary" (click)="closeBalanceModal()">Hide Balance</button>
+    </div>
+    <h3>Leave Balance for {{ selectedUser?.email }}</h3>
     <table class="custom-table">
       <thead>
         <tr>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Department</th>
-          <th>Actions</th>
+          <th>Leave Type</th>
+          <th>Default</th>
+          <th>Used</th>
+          <th>Remaining</th>
+          <th>Carry Over</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.email }}</td>
-          <td>{{ formatRole(user.roles[0]) }}</td>
-          <td>{{ user.department }}</td>
-          <td>
-            <div class="actions">
-              <button class="btn btn-green" (click)="toggleRoleEditor(user.id)">Update Role</button>
-              <button class="btn btn-blue" (click)="toggleDepartmentEditor(user.id)">Update Department</button>
-              <button class="btn btn-purple" (click)="viewBalance(user)">View Balance</button>
-            </div>
-  
-            <div *ngIf="showRoleEditor === user.id" class="inline-editor">
-              <select [(ngModel)]="user.role">
-                <option *ngFor="let role of availableRoles" [value]="role">{{ role }}</option>
-              </select>
-              <button class="btn btn-green" (click)="confirmRoleChange(user)">Save</button>
-              <button class="btn btn-secondary" (click)="cancelRoleEdit()">Cancel</button>
-            </div>
-  
-            <div *ngIf="showDepartmentEditor === user.id" class="inline-editor">
-              <select [(ngModel)]="user.department">
-                <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
-              </select>
-              <button class="btn btn-blue" (click)="confirmDepartmentChange(user)">Save</button>
-              <button class="btn btn-secondary" (click)="cancelDepartmentEdit()">Cancel</button>
-            </div>
-          </td>
+        <tr *ngFor="let b of selectedUserBalance">
+          <td>{{ b.leaveType }}</td>
+          <td>{{ b.defaultBalance }}</td>
+          <td>{{ b.usedLeave }}</td>
+          <td>{{ b.balance }}</td>
+          <td>{{ b.carryOver }}</td>
         </tr>
       </tbody>
     </table>
-  
-    <!-- Leave Balance Summary Table -->
-    <div *ngIf="selectedUserBalance?.length" class="balance-summary">
-    <div class="actions" style="justify-content: flex-end; margin-bottom: 10px;">
-        <button class="btn btn-secondary" (click)="closeBalanceModal()">Hide Balance</button>
-        </div>
-      <h3>Leave Balance for {{ selectedUser?.email }}</h3>
-      <table class="custom-table">
-        <thead>
-          <tr>
-            <th>Leave Type</th>
-            <th>Default</th>
-            <th>Used</th>
-            <th>Remaining</th>
-            <th>Carry Over</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let b of selectedUserBalance">
-            <td>{{ b.leaveType }}</td>
-            <td>{{ b.defaultBalance }}</td>
-            <td>{{ b.usedLeave }}</td>
-            <td>{{ b.balance }}</td>
-            <td>{{ b.carryOver }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
-  
+</div>
