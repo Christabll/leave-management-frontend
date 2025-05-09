@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class LeaveService {
-  private baseUrl = 'http://localhost:8082/api/v1/leave';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -18,7 +18,6 @@ export class LeaveService {
     return this.http.post(`${this.baseUrl}/apply`, formData);
   }
 
-
   getLeaveBalance(): Observable<any> {
     return this.http.get(`${this.baseUrl}/leave/balance`);
   }
@@ -26,7 +25,5 @@ export class LeaveService {
   getMyLeaveRequests(): Observable<any> {
     return this.http.get(`${this.baseUrl}/my-requests`);
   }
-  
-
 }
 
