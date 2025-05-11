@@ -10,11 +10,15 @@
         <li><a routerLink="balance" routerLinkActive="active" class="sidebar-link"><i class="fas fa-balance-scale"></i> Leave Balance</a></li>
         <li><a routerLink="apply" routerLinkActive="active" class="sidebar-link"><i class="fas fa-file-alt"></i> Apply for Leave</a></li>
       </ul>
-      </nav>
+    </nav>
     <button (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
   </aside>
   <main class="main-content">
     <h1>Leave Management System - Staff Dashboard</h1>
+    
+    <div *ngIf="errorMessage" class="alert alert-danger" style="margin-bottom: 1rem;">
+      {{ errorMessage }}
+    </div>
     <router-outlet></router-outlet>
   </main>
 </div>

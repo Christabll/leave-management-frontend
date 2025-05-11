@@ -1,5 +1,8 @@
 <section class="leave-balance">
   <h2>Leave Balance</h2>
+  <div *ngIf="errorMessage" class="alert alert-danger" style="margin-bottom: 1rem;">
+    {{ errorMessage }}
+  </div>
   <table>
     <thead>
       <tr>

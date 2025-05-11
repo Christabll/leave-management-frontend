@@ -9,7 +9,6 @@ bootstrapApplication(AppComponent, {
   providers: [
     ...(appConfig.providers || []),
     provideHttpClient(
-      withFetch(), 
       withInterceptors([AuthInterceptor])
     )
   ]

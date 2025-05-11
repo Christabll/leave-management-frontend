@@ -1,15 +1,19 @@
 <div class="employees-container">
   <h2>Manage Leave Types</h2>
 
+  <div *ngIf="errorMessage && !showAddForm" class="alert alert-danger" style="margin-bottom: 1rem;">
+    {{ errorMessage }}
+  </div>
+
   <div class="balance-summary" style="margin-top: 30px;">
     <h3>All Leave Types</h3>
-    <div *ngIf="errorMessage" style="color: red; margin-bottom: 10px;">{{ errorMessage }}</div>
     <table class="custom-table">
       <thead>
         <tr>
           <th>#</th>
           <th>Leave Type</th>
           <th>Default Balance (days)</th>
+          <th *ngIf="showAddForm"></th>
         </tr>
       </thead>
       <tbody>
@@ -29,7 +33,14 @@
             <button class="btn btn-secondary" (click)="closeAddForm()" [disabled]="isSubmitting">Cancel</button>
           </td>
         </tr>
-        <!-- Existing leave types -->
+        
+        <tr *ngIf="showAddForm && errorMessage">
+          <td colspan="4">
+            <div class="alert alert-danger" style="margin-bottom: 10px;">{{ errorMessage }}</div>
+          </td>
+        </tr>
+       
+      
         <tr *ngFor="let lt of leaveTypes; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ lt.name }}</td>
@@ -44,7 +55,7 @@
     </table>
   </div>
 
-  <!-- Floating "+" Button -->
+
   <button
     (click)="openAddForm()"
     class="btn btn-green floating-add-button"

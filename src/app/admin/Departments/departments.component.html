@@ -1,56 +1,56 @@
 <div class="employees-container">
-      <h2>Manage Departments</h2>
-    
-      <!-- Modal Form -->
-      <div class="modal" *ngIf="showAddForm" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; min-width: 300px;">
-        <h3>Add Department</h3>
-        <div *ngIf="errorMessage" style="color: red; margin-bottom: 10px;">{{ errorMessage }}</div>
-        <div class="inline-editor">
-          <label for="name">Department Name:</label>
-          <input id="name" [(ngModel)]="name" type="text" placeholder="e.g. HR" required [disabled]="isSubmitting" />
-    
-          <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
-            <button class="btn btn-secondary" (click)="closeAddForm()" [disabled]="isSubmitting">Cancel</button>
-            <button class="btn btn-green" (click)="createDepartment()" [disabled]="!name || isSubmitting">
-              {{ isSubmitting ? 'Saving...' : 'Save' }}
-            </button>
-          </div>
-        </div>
+  <h2>Manage Departments</h2>
+  <div *ngIf="errorMessage && !showAddForm" class="alert alert-danger" style="margin-bottom: 1rem;">
+    {{ errorMessage }}
+  </div>
+  <div class="modal" *ngIf="showAddForm" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; min-width: 300px;">
+    <h3>Add Department</h3>
+    <div *ngIf="errorMessage" class="alert alert-danger" style="margin-bottom: 10px;">{{ errorMessage }}</div>
+    <div class="inline-editor">
+      <label for="name">Department Name:</label>
+      <input id="name" [(ngModel)]="name" type="text" placeholder="e.g. HR" required [disabled]="isSubmitting" />
+
+      <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
+        <button class="btn btn-secondary" (click)="closeAddForm()" [disabled]="isSubmitting">Cancel</button>
+        <button class="btn btn-green" (click)="createDepartment()" [disabled]="!name || isSubmitting">
+          {{ isSubmitting ? 'Saving...' : 'Save' }}
+        </button>
       </div>
-    
-      <!-- Departments Table -->
-      <div class="balance-summary" style="margin-top: 30px;">
-        <h3>All Departments</h3>
-        <div *ngIf="errorMessage" style="color: red; margin-bottom: 10px;">{{ errorMessage }}</div>
-        <table class="custom-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Department Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let dept of departments; let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ dept.name }}</td>
-            </tr>
-            <tr *ngIf="departments.length === 0 && !showAddForm">
-              <td colspan="2" style="text-align: center; padding: 20px;">
-                No departments added yet. Click the "+" button to add one.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    
-      <!-- Floating "+" Button -->
-      <button
-        (click)="openAddForm()"
-        class="btn btn-green floating-add-button"
-        title="Add Department"
-        style="font-size: 24px; border-radius: 50%; width: 50px; height: 50px; position: fixed; bottom: 30px; right: 30px; z-index: 999; background: #4CAF50; color: white; border: none; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);"
-        *ngIf="!showAddForm"
-      >
-        +
-      </button>
     </div>
+  </div>
+
+ 
+  <div class="balance-summary" style="margin-top: 30px;">
+    <h3>All Departments</h3>
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Department Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dept of departments; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ dept.name }}</td>
+        </tr>
+        <tr *ngIf="departments.length === 0 && !showAddForm">
+          <td colspan="2" style="text-align: center; padding: 20px;">
+            No departments added yet. Click the "+" button to add one.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+ 
+  <button
+    (click)="openAddForm()"
+    class="btn btn-green floating-add-button"
+    title="Add Department"
+    style="font-size: 24px; border-radius: 50%; width: 50px; height: 50px; position: fixed; bottom: 30px; right: 30px; z-index: 999; background: #4CAF50; color: white; border: none; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);"
+    *ngIf="!showAddForm"
+  >
+    +
+  </button>
+</div>

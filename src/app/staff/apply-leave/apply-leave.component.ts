@@ -34,6 +34,7 @@ export class ApplyLeaveComponent implements OnInit {
   minDate: string = '';
   endDateMin: string = '';
   selectedFile: File | null = null;
+  errorMessage: string | null = null; // User-friendly error message
 
   constructor(private leaveService: LeaveService) {}
 
@@ -47,9 +48,10 @@ export class ApplyLeaveComponent implements OnInit {
     this.leaveService.getLeaveTypes().subscribe({
       next: (res) => {
         this.leaveTypes = res.data;
+        this.errorMessage = null; 
       },
-      error: (err) => {
-        console.error('Failed to load leave types', err);
+      error: () => {
+        this.errorMessage = 'Failed to load leave types. Please try again later.';
       }
     });
   }
@@ -71,12 +73,12 @@ export class ApplyLeaveComponent implements OnInit {
     const { leaveTypeName, startDate, endDate, reason } = this.newLeaveRequest;
 
     if (!leaveTypeName || !startDate || !endDate || !reason) {
-      alert('Please fill in all required fields.');
+      this.errorMessage = 'Please fill in all required fields.';
       return;
     }
 
     if (this.requiresDocument && !this.selectedFile) {
-      alert('This leave type requires a supporting document.');
+      this.errorMessage = 'This leave type requires a supporting document.';
       return;
     }
 
@@ -88,13 +90,12 @@ export class ApplyLeaveComponent implements OnInit {
 
     this.leaveService.applyLeave(formData).subscribe({
       next: () => {
+        this.errorMessage = null;
         alert('Leave request submitted successfully.');
         this.onCancel(); // reset form
       },
       error: (err) => {
-        console.error('Error submitting leave request:', err);
-        const msg = err?.error?.message || 'Failed to submit leave request.';
-        alert(msg);
+        this.errorMessage = err?.error?.message || 'Failed to submit leave request. Please try again later.';
       }
     });
   }
@@ -107,5 +108,6 @@ export class ApplyLeaveComponent implements OnInit {
       reason: ''
     };
     this.selectedFile = null;
+    this.errorMessage = null;
   }
 }

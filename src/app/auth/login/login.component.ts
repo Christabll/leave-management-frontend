@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment'; 
 
 @Component({
   selector: 'app-login',
@@ -9,8 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-    handleGoogleLogin(): void {
-        window.location.href = 'http://localhost:8081/api/v1/auth/login/google';
-      }
-      
+  handleGoogleLogin(): void {
+    window.location.href = `${environment.authApiUrl}/login/google`;
+  }
 }

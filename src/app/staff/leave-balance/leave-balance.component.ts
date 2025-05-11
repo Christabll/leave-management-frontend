@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+
 
 interface LeaveBalanceDto {
   leaveType: string;
@@ -20,6 +21,8 @@ interface LeaveBalanceDto {
 })
 export class LeaveBalanceComponent implements OnInit {
   leaveBalance: LeaveBalanceDto[] = [];
+  errorMessage: string | null = null;
+
 
   constructor(private http: HttpClient) {}
 
@@ -29,18 +32,23 @@ export class LeaveBalanceComponent implements OnInit {
 
   loadLeaveBalance(): void {
     const token = localStorage.getItem('token');
-    if (!token) return;
+    if (!token) {
+      this.errorMessage = 'You are not logged in. Please log in to view your leave balance.';
+      return;
+    }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http.get<any>('http://localhost:8082/api/v1/leave/leave/balance', { headers })
+    this.http.get<any>(`${environment.leaveApiUrl}/leave/balance`, { headers })
       .subscribe({
         next: (res) => {
           this.leaveBalance = res.data;
+          this.errorMessage = null;
         },
         error: (err) => {
-          console.error('Failed to fetch leave balances:', err);
+          this.errorMessage = err?.error?.message || 'Failed to fetch leave balances. Please try again later.';
         }
       });
   }
 }
+

@@ -1,7 +1,10 @@
 <div class="employees-container">
   <h2>Manage Employees</h2>
 
-  <!-- Users Table -->
+  <div *ngIf="errorMessage" class="alert alert-danger" style="margin-bottom: 1rem;">
+    {{ errorMessage }}
+  </div>
+
   <table class="custom-table">
     <thead>
       <tr>
@@ -43,7 +46,7 @@
     </tbody>
   </table>
 
-  <!-- Leave Balance Summary -->
+  
   <div *ngIf="selectedUserBalance?.length" class="balance-summary">
     <div class="actions" style="justify-content: flex-end; margin-bottom: 10px;">
       <button class="btn btn-secondary" (click)="closeBalanceModal()">Hide Balance</button>

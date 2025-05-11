@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class LeaveService {
-  private baseUrl = environment.apiUrl;
+  private baseUrl = environment.leaveApiUrl; 
 
   constructor(private http: HttpClient) {}
 
@@ -26,4 +25,3 @@ export class LeaveService {
     return this.http.get(`${this.baseUrl}/my-requests`);
   }
 }
-

@@ -1,5 +1,13 @@
 <div class="employees-container">
   <h2>Pending Leave Requests</h2>
+
+  <div *ngIf="successMessage" class="alert alert-success" style="margin-bottom: 1rem;">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger" style="margin-bottom: 1rem;">
+    {{ errorMessage }}
+  </div>
+
   <table class="custom-table">
     <thead>
       <tr>
@@ -10,8 +18,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let request of pendingRequests">
-        <td>{{ request.email }}</td>
-        <td>{{ request.leaveType }}</td>
+        <td>{{ request.userId }}</td>
+        <td>{{ request.leaveType.name }}</td>
         <td>
           <div class="actions">
             <button class="btn btn-blue" (click)="viewDetails(request)">View Details</button>
@@ -23,13 +31,62 @@
     </tbody>
   </table>
 
-  <!-- Comment Section -->
-  <div *ngIf="selectedRequest" class="modal">
-    <h3>{{ actionType | titlecase }} Leave Request</h3>
-    <label for="comment">Comment (required):</label>
-    <textarea id="comment" [(ngModel)]="comment" rows="3" class="form-control"></textarea>
-    <br>
-    <button class="btn btn-primary" (click)="submitAction()">Submit</button>
-    <button class="btn btn-secondary" (click)="cancelAction()">Cancel</button>
+  <div *ngIf="selectedRequest && !actionType" class="details-section" style="margin-top: 2rem;">
+    <h3>Leave Request Details</h3>
+    <table class="custom-table">
+      <tr>
+        <th>Email</th>
+        <td>{{ selectedRequest.userId }}</td>
+      </tr>
+      <tr>
+        <th>Leave Type</th>
+        <td>{{ selectedRequest.leaveType.name }}</td>
+      </tr>
+      <tr>
+        <th>Start Date</th>
+        <td>{{ selectedRequest.startDate }}</td>
+      </tr>
+      <tr>
+        <th>End Date</th>
+        <td>{{ selectedRequest.endDate }}</td>
+      </tr>
+      <tr>
+        <th>Reason</th>
+        <td>{{ selectedRequest.reason }}</td>
+      </tr>
+      <tr *ngIf="selectedRequest.documentUrl">
+        <th>Document</th>
+        <td>
+          <button style="color:white; background: rgb(59, 123, 219); border: none; padding: 6px 16px; cursor: pointer; transition: background 0.2s; border-radius: 6px;"
+                  onmouseover="this.style.background='#2456a6'"
+                  onmouseout="this.style.background='rgb(59, 123, 219)'"
+                  (click)="viewDocument(selectedRequest.documentUrl)">
+            View Document
+          </button>
+          |
+          <button style="color: white; background: rgb(47, 121, 233); border: none; padding: 6px 16px; cursor: pointer; transition: background 0.2s; border-radius: 6px;"
+                  onmouseover="this.style.background='#1a4a8a'"
+                  onmouseout="this.style.background='rgb(47, 121, 233)'"
+                  (click)="downloadDocument(selectedRequest.documentUrl)">
+            Download Document
+          </button>
+        </td>
+      </tr>
+    </table>
+    <button class="btn btn-secondary" (click)="closeDetails()">Close</button>
   </div>
 </div>
+
+<div *ngIf="selectedRequest && actionType"
+     style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);z-index:9998;">
+</div>
+<div *ngIf="selectedRequest && actionType"
+     style="position:fixed;top:300px;left:80%;transform:translateX(-50%);background:#fff;z-index:9999;padding:24px 32px;min-width:400px;max-height:300px;overflow:auto;border-radius:12px;">
+  <h3 style="margin-top:0;">{{ actionType | titlecase }} Leave Request</h3>
+  <label for="comment">Comment (required):</label>
+  <textarea id="comment" [(ngModel)]="comment" rows="3" class="form-control" style="width:100%;"></textarea>
+  <br>
+  <button class="btn btn-primary" [disabled]="!comment.trim()" (click)="submitAction()" style="margin-right:180px;">Send</button>
+  <button class="btn btn-secondary" (click)="cancelAction()">Cancel</button>
+</div>
+

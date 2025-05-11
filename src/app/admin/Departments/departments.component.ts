@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 interface Department {
   id?: string;
@@ -29,9 +30,14 @@ export class DepartmentComponent implements OnInit {
   }
 
   fetchDepartments(): void {
-    this.http.get<any>('http://localhost:8081/api/v1/auth/departments').subscribe({
-      next: res => this.departments = res.data,
-      error: err => this.errorMessage = 'Failed to fetch departments'
+    this.http.get<any>(`${environment.authApiUrl}/departments`).subscribe({
+      next: res => {
+        this.departments = res.data;
+        this.errorMessage = null;
+      },
+      error: err => {
+        this.errorMessage = err?.error?.message || 'Failed to fetch departments. Please try again later.';
+      }
     });
   }
 
@@ -48,21 +54,21 @@ export class DepartmentComponent implements OnInit {
 
   createDepartment(): void {
     if (!this.name) {
-      this.errorMessage = 'Please enter a department name';
+      this.errorMessage = 'Please enter a department name.';
       return;
     }
     this.isSubmitting = true;
     const token = localStorage.getItem('token');
     const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
     const body = { name: this.name };
-    this.http.post<any>('http://localhost:8081/api/v1/auth/departments', body, headers).subscribe({
+    this.http.post<any>(`${environment.authApiUrl}/departments`, body, headers).subscribe({
       next: res => {
         this.departments.push(res.data);
         this.closeAddForm();
         this.isSubmitting = false;
       },
       error: err => {
-        this.errorMessage = err?.error?.message || 'Failed to create department';
+        this.errorMessage = err?.error?.message || 'Failed to create department. Please try again later.';
         this.isSubmitting = false;
       }
     });

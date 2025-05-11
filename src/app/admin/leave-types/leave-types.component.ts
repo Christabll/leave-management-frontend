@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 interface LeaveTypeDto {
   name: string;
@@ -32,9 +33,14 @@ export class LeaveTypesComponent implements OnInit {
   fetchLeaveTypes(): void {
     const token = localStorage.getItem('token');
     const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
-    this.http.get<any>('http://localhost:8082/api/v1/leave/leave-types', headers).subscribe({
-      next: res => this.leaveTypes = res.data,
-      error: err => this.errorMessage = 'Failed to fetch leave types'
+    this.http.get<any>(`${environment.leaveApiUrl}/leave-types`, headers).subscribe({
+      next: res => {
+        this.leaveTypes = res.data;
+        this.errorMessage = null;
+      },
+      error: err => {
+        this.errorMessage = err?.error?.message || 'Failed to fetch leave types. Please try again later.';
+      }
     });
   }
 
@@ -52,7 +58,7 @@ export class LeaveTypesComponent implements OnInit {
 
   createLeaveType(): void {
     if (!this.name || this.defaultBalance == null) {
-      this.errorMessage = 'Please fill in all fields';
+      this.errorMessage = 'Please fill in all fields.';
       return;
     }
     this.isSubmitting = true;
@@ -62,7 +68,7 @@ export class LeaveTypesComponent implements OnInit {
       name: this.name,
       defaultBalance: this.defaultBalance
     };
-    this.http.post<any>('http://localhost:8082/api/v1/admin/leave-types', body, headers).subscribe({
+    this.http.post<any>(`${environment.adminApiUrl}/leave-types`, body, headers).subscribe({
       next: res => {
         this.leaveTypes.push({
           name: res.data.name,
@@ -72,7 +78,7 @@ export class LeaveTypesComponent implements OnInit {
         this.isSubmitting = false;
       },
       error: err => {
-        this.errorMessage = err.error?.message || 'Failed to create leave type';
+        this.errorMessage = err?.error?.message || 'Failed to create leave type. Please try again later.';
         this.isSubmitting = false;
       }
     });

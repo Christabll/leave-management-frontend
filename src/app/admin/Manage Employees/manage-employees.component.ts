@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 interface LeaveType {
   id?: number;
@@ -35,6 +36,9 @@ export class ManageEmployeesComponent implements OnInit {
   showRoleEditor: string | null = null;
   showDepartmentEditor: string | null = null;
 
+  private authApiUrl = environment.authApiUrl;
+  private leaveApiUrl = environment.leaveApiUrl;
+
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -48,21 +52,31 @@ export class ManageEmployeesComponent implements OnInit {
   }
 
   fetchUsers(): void {
-    this.http.get<any>('http://localhost:8081/api/v1/auth/users').subscribe({
+    this.http.get<any>(`${this.authApiUrl}/users`).subscribe({
       next: res => {
         this.users = res.data.map((u: any) => ({
           ...u,
           role: u.roles?.[0]?.replace('ROLE_', '') ?? '',
         }));
+        this.errorMessage = null;
       },
-      error: () => this.users = []
+      error: err => {
+        this.users = [];
+        this.errorMessage = err?.error?.message || 'Failed to fetch users. Please try again later.';
+      }
     });
   }
 
   fetchDepartments(): void {
-    this.http.get<any>('http://localhost:8081/api/v1/auth/departments').subscribe({
-      next: res => this.departments = res.data.map((d: any) => d.name),
-      error: () => this.departments = []
+    this.http.get<any>(`${this.authApiUrl}/departments`).subscribe({
+      next: res => {
+        this.departments = res.data.map((d: any) => d.name);
+        this.errorMessage = null;
+      },
+      error: err => {
+        this.departments = [];
+        this.errorMessage = err?.error?.message || 'Failed to fetch departments. Please try again later.';
+      }
     });
   }
 
@@ -80,18 +94,28 @@ export class ManageEmployeesComponent implements OnInit {
 
   confirmRoleChange(user: any): void {
     const body = { role: user.role.toUpperCase() };
-    this.http.put(`http://localhost:8081/api/v1/auth/users/${user.id}/role`, body).subscribe({
+    this.http.put(`${this.authApiUrl}/users/${user.id}/role`, body).subscribe({
       next: () => {
         this.showRoleEditor = null;
         this.fetchUsers();
+        this.errorMessage = null;
+      },
+      error: err => {
+        this.errorMessage = err?.error?.message || 'Failed to update role. Please try again later.';
       }
     });
   }
 
   confirmDepartmentChange(user: any): void {
     const body = { department: user.department };
-    this.http.put(`http://localhost:8081/api/v1/auth/users/${user.id}/department`, body).subscribe(() => {
-      this.showDepartmentEditor = null;
+    this.http.put(`${this.authApiUrl}/users/${user.id}/department`, body).subscribe({
+      next: () => {
+        this.showDepartmentEditor = null;
+        this.errorMessage = null;
+      },
+      error: err => {
+        this.errorMessage = err?.error?.message || 'Failed to update department. Please try again later.';
+      }
     });
   }
 
@@ -108,9 +132,15 @@ export class ManageEmployeesComponent implements OnInit {
     const token = localStorage.getItem('token');
     const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
 
-    this.http.get<any>(`http://localhost:8082/api/v1/leave/admin/leave/balance/${user.id}`, headers).subscribe({
-      next: res => this.selectedUserBalance = res.data,
-      error: () => this.selectedUserBalance = []
+    this.http.get<any>(`${this.leaveApiUrl}/admin/leave/balance/${user.id}`, headers).subscribe({
+      next: res => {
+        this.selectedUserBalance = res.data;
+        this.errorMessage = null;
+      },
+      error: err => {
+        this.selectedUserBalance = [];
+        this.errorMessage = err?.error?.message || 'Failed to fetch user balance. Please try again later.';
+      }
     });
   }
 
