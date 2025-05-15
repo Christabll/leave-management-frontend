@@ -24,10 +24,10 @@
     <tbody>
       <tr *ngFor="let balance of leaveBalance">
         <td>{{ balance.leaveType }}</td>
-        <td>{{ balance.defaultBalance | number:'1.1-1' }}</td>
-        <td>{{ balance.usedLeave | number:'1.1-1' }}</td>
+        <td>{{ balance.defaultBalance | number:'1.0-0' }}</td>
+        <td>{{ balance.usedLeave | number:'1.0-0' }}</td>
         <td>{{ balance.remainingLeave }}</td>
-        <td>{{ balance.carryOver | number:'1.1-1' }}</td>
+        <td>{{ balance.carryOver | number:'1.0-0' }}</td>
       </tr>
     </tbody>
   </table>
