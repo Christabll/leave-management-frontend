@@ -5,13 +5,13 @@ import { RouterModule } from '@angular/router';
 import { ROLES } from '../../core/constants/roles';
 
 @Component({
-  selector: 'app-admin-dashboard',
+  selector: 'app-manager-dashboard',
   standalone: true,
-  templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.css'],
+  templateUrl: './manager-dashboard.component.html',
+  styleUrls: ['./manager-dashboard.component.css'],
   imports: [CommonModule, RouterModule]
 })
-export class AdminDashboardComponent implements OnInit {
+export class ManagerDashboardComponent implements OnInit {
   userEmail = '';
   userRole = '';
   avatarUrl: string = 'https://www.gravatar.com/avatar?d=identicon';
@@ -29,8 +29,8 @@ export class AdminDashboardComponent implements OnInit {
       this.userRole = user.roles?.[0] || '';
       this.avatarUrl = user.avatarUrl || 'https://www.gravatar.com/avatar?d=identicon';
       
-      if (this.router.url === '/admin/dashboard') {
-        this.router.navigate(['/admin/dashboard/employees']);
+      if (this.router.url === '/manager/dashboard') {
+        this.router.navigate(['/manager/dashboard/employees']);
       }
     }
   }

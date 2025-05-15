@@ -21,25 +21,7 @@
         <td>{{ user.department }}</td>
         <td>
           <div class="actions">
-            <button class="btn btn-green" (click)="toggleRoleEditor(user.id)">Update Role</button>
-            <button class="btn btn-blue" (click)="toggleDepartmentEditor(user.id)">Update Department</button>
             <button class="btn btn-purple" (click)="viewBalance(user)">View Balance</button>
-          </div>
-
-          <div *ngIf="showRoleEditor === user.id" class="inline-editor">
-            <select [(ngModel)]="user.role">
-              <option *ngFor="let role of availableRoles" [value]="role">{{ role }}</option>
-            </select>
-            <button class="btn btn-green" (click)="confirmRoleChange(user)">Save</button>
-            <button class="btn btn-secondary" (click)="cancelRoleEdit()">Cancel</button>
-          </div>
-
-          <div *ngIf="showDepartmentEditor === user.id" class="inline-editor">
-            <select [(ngModel)]="user.department">
-              <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
-            </select>
-            <button class="btn btn-blue" (click)="confirmDepartmentChange(user)">Save</button>
-            <button class="btn btn-secondary" (click)="cancelDepartmentEdit()">Cancel</button>
           </div>
         </td>
       </tr>

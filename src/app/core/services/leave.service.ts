@@ -17,11 +17,27 @@ export class LeaveService {
     return this.http.post(`${this.baseUrl}/apply`, formData);
   }
 
-  getLeaveBalance(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/leave/balance`);
+  getLeaveBalance(timestamp?: number): Observable<any> {
+    const url = timestamp ? 
+      `${this.baseUrl}/balance?t=${timestamp}` : 
+      `${this.baseUrl}/balance`;
+    
+    return this.http.get<any>(url);
   }
   
   getMyLeaveRequests(): Observable<any> {
     return this.http.get(`${this.baseUrl}/my-requests`);
   }
+  
+  getUserLeaveBalance(userId: string, timestamp?: number): Observable<any> {
+    const url = timestamp ? 
+      `${environment.adminApiUrl}/leave/balance/${userId}?t=${timestamp}` : 
+      `${environment.adminApiUrl}/leave/balance/${userId}`;
+    
+    return this.http.get<any>(url);
+  }
+
+  getPublicHolidays(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/public-holidays`);
+}
 }

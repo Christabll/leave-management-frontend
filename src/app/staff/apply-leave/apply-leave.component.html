@@ -1,27 +1,49 @@
 <section class="apply-leave">
   <h2>Apply for Leave</h2>
-  <form (ngSubmit)="submitLeaveRequest()">
-    <div *ngIf="errorMessage" class="alert alert-danger" style="margin-bottom: 1rem;">
-      {{ errorMessage }}
-    </div>
 
+  <div *ngIf="errorMessage" class="alert alert-danger" style="margin-bottom: 1rem;">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success" style="margin-bottom: 1rem;">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="userRole !== ROLES.STAFF" class="alert alert-warning">
+    You do not have permission to access this page. Please contact your administrator.
+  </div>
+
+ <form *ngIf="userRole === ROLES.STAFF" (ngSubmit)="submitLeaveRequest()">
     <div class="form-group">
       <label for="leaveType">Leave Type</label>
-      <select id="leaveType" [(ngModel)]="newLeaveRequest.leaveTypeName" name="leaveTypeName" required>
+      <select id="leaveType" [(ngModel)]="newLeaveRequest.leaveTypeName" name="leaveTypeName" required
+        (change)="onDateChange()">
         <option value="" disabled selected>Select Leave Type</option>
         <option *ngFor="let type of leaveTypes" [value]="type.name">{{ type.name }}</option>
-      </select>        
+      </select>
     </div>
 
     <div class="form-group date-row">
       <div class="form-group">
         <label for="startDate">Start Date</label>
-        <input type="date" id="startDate" [(ngModel)]="newLeaveRequest.startDate" name="startDate" [min]="minDate" (change)="updateEndDateMin()" required>
+        <input type="date" id="startDate" [(ngModel)]="newLeaveRequest.startDate" name="startDate" [min]="minDate"
+          (change)="updateEndDateMin(); onDateChange()" required>
       </div>
       <div class="form-group">
         <label for="endDate">End Date</label>
-        <input type="date" id="endDate" [(ngModel)]="newLeaveRequest.endDate" name="endDate" [min]="endDateMin" required>
+        <input type="date" id="endDate" [(ngModel)]="newLeaveRequest.endDate" name="endDate" [min]="endDateMin"
+          (change)="onDateChange()" required>
       </div>
+    </div>
+
+    <!-- Show business days calculation -->
+    <div class="business-days-info" *ngIf="estimatedBusinessDays > 0">
+      <div class="info-badge">
+        This request will use <strong>{{ estimatedBusinessDays }} business day{{ estimatedBusinessDays !== 1 ? 's' : ''
+          }}</strong>
+        {{ selectedLeaveType ? 'of ' + selectedLeaveType : '' }}
+      </div>
+      <small class="text-muted">* Weekends and public holidays are automatically excluded</small>
     </div>
 
     <div class="form-group">
@@ -32,5 +54,15 @@
     <div class="form-group" *ngIf="requiresDocument">
       <label for="fileUpload">Upload Supporting Document</label>
       <input type="file" id="fileUpload" (change)="onFileSelected($event)" name="fileUpload" required>
+      <small class="text-muted">* Medical certificates or supporting documents as required by policy</small>
     </div>
+
     <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="disableSubmit || isSubmitting">
+        <span *ngIf="isSubmitting">Sending...</span>
+        <span *ngIf="!isSubmitting">Submit Request</span>
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</section>

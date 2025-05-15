@@ -20,21 +20,15 @@ interface ApiResponse<T> {
   selector: 'app-manage-employees',
   standalone: true,
   templateUrl: './manage-employees.component.html',
-  styleUrls: ['../admin-dashboard/admin-dashboard.component.css'],
+  styleUrls: ['../manager-dashboard/manager-dashboard.component.css'],
   imports: [CommonModule, FormsModule, HttpClientModule]
 })
 export class ManageEmployeesComponent implements OnInit {
   users: any[] = [];
   departments: string[] = [];
-  availableRoles: string[] = ['STAFF', 'MANAGER', 'ADMIN'];
-
   errorMessage: string | null = null;
-
   selectedUser: any = null;
   selectedUserBalance: any[] = [];
-
-  showRoleEditor: string | null = null;
-  showDepartmentEditor: string | null = null;
 
   private authApiUrl = environment.authApiUrl;
   private leaveApiUrl = environment.leaveApiUrl;
@@ -79,49 +73,6 @@ export class ManageEmployeesComponent implements OnInit {
 
   formatRole(role: string): string {
     return role?.toLowerCase().replace(/^[a-z]/, c => c.toUpperCase());
-  }
-
-  toggleRoleEditor(userId: string): void {
-    this.showRoleEditor = this.showRoleEditor === userId ? null : userId;
-  }
-
-  toggleDepartmentEditor(userId: string): void {
-    this.showDepartmentEditor = this.showDepartmentEditor === userId ? null : userId;
-  }
-
-  confirmRoleChange(user: any): void {
-    const body = { role: user.role.toUpperCase() };
-    this.http.put(`${this.authApiUrl}/users/${user.id}/role`, body).subscribe({
-      next: () => {
-        this.showRoleEditor = null;
-        this.fetchUsers();
-        this.errorMessage = null;
-      },
-      error: err => {
-        this.errorMessage = err?.error?.message || 'Failed to update role. Please try again later.';
-      }
-    });
-  }
-
-  confirmDepartmentChange(user: any): void {
-    const body = { department: user.department };
-    this.http.put(`${this.authApiUrl}/users/${user.id}/department`, body).subscribe({
-      next: () => {
-        this.showDepartmentEditor = null;
-        this.errorMessage = null;
-      },
-      error: err => {
-        this.errorMessage = err?.error?.message || 'Failed to update department. Please try again later.';
-      }
-    });
-  }
-
-  cancelRoleEdit(): void {
-    this.showRoleEditor = null;
-  }
-
-  cancelDepartmentEdit(): void {
-    this.showDepartmentEditor = null;
   }
 
   viewBalance(user: any): void {

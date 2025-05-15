@@ -2,7 +2,7 @@
   <aside class="sidebar">
     <div class="profile">
       <img [src]="avatarUrl" alt="Profile" />
-      <p class="role">{{ userRole }}</p>
+      <p class="role">{{ userRole | titlecase }}</p>
       <p class="text-sm text-gray-500">{{ userEmail }}</p>
     </div>
     <nav>
@@ -19,6 +19,13 @@
     <div *ngIf="errorMessage" class="alert alert-danger" style="margin-bottom: 1rem;">
       {{ errorMessage }}
     </div>
-    <router-outlet></router-outlet>
+
+    <div *ngIf="userRole !== ROLES.STAFF" class="alert alert-warning">
+      You do not have permission to access this page. Please contact your administrator.
+    </div>
+
+    <div *ngIf="userRole === ROLES.STAFF">
+      <router-outlet></router-outlet>
+    </div>
   </main>
 </div>

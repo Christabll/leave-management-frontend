@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { ROLES } from '../core/constants/roles';
 
 export const adminRoutes: Routes = [
   {
     path: 'admin/dashboard',
     component: AdminDashboardComponent,
+    data: { roles: [ROLES.ADMIN, ROLES.MANAGER] },
     children: [
       { path: '', redirectTo: 'employees', pathMatch: 'full' },
       {

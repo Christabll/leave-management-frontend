@@ -2,7 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { CallbackComponent } from './callback/callback.component';
 import { AdminDashboardComponent } from '../admin/admin-dashboard/admin-dashboard.component';
-import { ManagerDashboardComponent } from '../manager/manager-dashboard.component';
+import { ManagerDashboardComponent } from '../manager/manager-dashboard/manager-dashboard.component';
 import { StaffDashboardComponent } from '../staff/staff-dashboard/staff-dashboard.component';
 
 

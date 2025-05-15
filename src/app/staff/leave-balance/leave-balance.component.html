@@ -1,26 +1,35 @@
 <section class="leave-balance">
-  <h2>Leave Balance</h2>
+  <div class="balance-header">
+    <h2>Leave Balance ({{ currentYear }})</h2>
+    <button class="btn btn-primary refresh-button" [disabled]="isRefreshing" (click)="refreshBalance()">
+      <span *ngIf="isRefreshing">Refreshing...</span>
+      <span *ngIf="!isRefreshing">Refresh</span>
+    </button>
+  </div>
+
   <div *ngIf="errorMessage" class="alert alert-danger" style="margin-bottom: 1rem;">
     {{ errorMessage }}
   </div>
+
   <table>
     <thead>
       <tr>
         <th>Leave Type</th>
-        <th>Default</th>
-        <th>Used</th>
-        <th>Remaining</th>
+        <th>Default Days</th>
+        <th>Used Days</th>
+        <th>Available Days</th>
         <th>Carry Over</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let balance of leaveBalance">
         <td>{{ balance.leaveType }}</td>
-        <td>{{ balance.defaultBalance }}</td>
-        <td>{{ balance.usedLeave }}</td>
-        <td>{{ balance.balance }}</td>
-        <td>{{ balance.carryOver }}</td>
+        <td>{{ balance.defaultBalance | number:'1.1-1' }}</td>
+        <td>{{ balance.usedLeave | number:'1.1-1' }}</td>
+        <td>{{ balance.remainingLeave }}</td>
+        <td>{{ balance.carryOver | number:'1.1-1' }}</td>
       </tr>
     </tbody>
   </table>
+
 </section>

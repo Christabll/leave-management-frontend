@@ -1,25 +1,10 @@
 <div class="employees-container">
   <h2>Manage Departments</h2>
+
   <div *ngIf="errorMessage && !showAddForm" class="alert alert-danger" style="margin-bottom: 1rem;">
     {{ errorMessage }}
   </div>
-  <div class="modal" *ngIf="showAddForm" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; min-width: 300px;">
-    <h3>Add Department</h3>
-    <div *ngIf="errorMessage" class="alert alert-danger" style="margin-bottom: 10px;">{{ errorMessage }}</div>
-    <div class="inline-editor">
-      <label for="name">Department Name:</label>
-      <input id="name" [(ngModel)]="name" type="text" placeholder="e.g. HR" required [disabled]="isSubmitting" />
 
-      <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
-        <button class="btn btn-secondary" (click)="closeAddForm()" [disabled]="isSubmitting">Cancel</button>
-        <button class="btn btn-green" (click)="createDepartment()" [disabled]="!name || isSubmitting">
-          {{ isSubmitting ? 'Saving...' : 'Save' }}
-        </button>
-      </div>
-    </div>
-  </div>
-
- 
   <div class="balance-summary" style="margin-top: 30px;">
     <h3>All Departments</h3>
     <table class="custom-table">
@@ -27,9 +12,30 @@
         <tr>
           <th>#</th>
           <th>Department Name</th>
+          <th *ngIf="showAddForm"></th>
         </tr>
       </thead>
       <tbody>
+        <!-- Inline add row -->
+        <tr *ngIf="showAddForm">
+          <td>New</td>
+          <td>
+            <input [(ngModel)]="name" type="text" placeholder="e.g. HR Department" [disabled]="isSubmitting" />
+          </td>
+          <td>
+            <button class="btn btn-green" (click)="createDepartment()" [disabled]="!name || isSubmitting">
+              {{ isSubmitting ? 'Saving...' : 'Save' }}
+            </button>
+            <button class="btn btn-secondary" (click)="closeAddForm()" [disabled]="isSubmitting">Cancel</button>
+          </td>
+        </tr>
+        
+        <tr *ngIf="showAddForm && errorMessage">
+          <td colspan="3">
+            <div class="alert alert-danger" style="margin-bottom: 10px;">{{ errorMessage }}</div>
+          </td>
+        </tr>
+       
         <tr *ngFor="let dept of departments; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ dept.name }}</td>
@@ -43,7 +49,6 @@
     </table>
   </div>
 
- 
   <button
     (click)="openAddForm()"
     class="btn btn-green floating-add-button"
