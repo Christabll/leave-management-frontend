@@ -55,6 +55,19 @@ export const adminRoutes: Routes = [
               throw err;
             })
       },
+      {
+        path: 'leave-balances',
+        loadComponent: () =>
+          import('./Leave-balance/admin-leave-balances.component')
+            .then(m => {
+              console.log('AdminLeaveBalancesComponent loaded successfully');
+              return m.AdminLeaveBalancesComponent;
+            })
+            .catch(err => {
+              console.error('Failed to load AdminLeaveBalancesComponent:', err);
+              throw err;
+            })
+      },
     ]
   }
 ];
