@@ -32,6 +32,7 @@ export class ManageEmployeesComponent implements OnInit {
 
   selectedUser: any = null;
   selectedUserBalance: any[] = [];
+  selectedBalanceDetail: any = null;
 
   showRoleEditor: string | null = null;
   showDepartmentEditor: string | null = null;
@@ -129,7 +130,7 @@ export class ManageEmployeesComponent implements OnInit {
     const token = localStorage.getItem('token');
     const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
 
-    this.http.get<any>(`${this.leaveApiUrl}/admin/leave/balance/${user.id}`, headers).subscribe({
+    this.http.get<any>(`${environment.adminApiUrl}/leave/balance/${user.id}`, headers).subscribe({
       next: res => {
         this.selectedUserBalance = res.data;
         this.errorMessage = null;
@@ -144,5 +145,14 @@ export class ManageEmployeesComponent implements OnInit {
   closeBalanceModal(): void {
     this.selectedUser = null;
     this.selectedUserBalance = [];
+    this.selectedBalanceDetail = null;
+  }
+
+  viewBalanceDetails(balance: any): void {
+    this.selectedBalanceDetail = balance;
+  }
+
+  closeBalanceDetails(): void {
+    this.selectedBalanceDetail = null;
   }
 }

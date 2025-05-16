@@ -68,6 +68,16 @@ export const adminRoutes: Routes = [
               throw err;
             })
       },
+      {
+        path: 'reports',
+        loadComponent: () =>
+          import('./Reports/reports.component')
+            .then(m => m.ReportsComponent)
+            .catch(err => {
+              console.error('Failed to load ReportsComponent:', err);
+              throw err;
+            })
+      },
     ]
   }
 ];

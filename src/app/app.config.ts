@@ -4,6 +4,8 @@ import { staffRoutes } from './staff/staff-routes';
 import { adminRoutes } from './admin/admin.routes'; 
 import { managerRoutes } from './manager/manager.routes';
 import { provideHttpClient } from '@angular/common/http'; 
+import { ReportsComponent } from './admin/Reports/reports.component';
+
 
 export const appConfig = {
   providers: [
@@ -13,6 +15,7 @@ export const appConfig = {
       ...adminRoutes,
       ...managerRoutes,
       ...staffRoutes, 
+      { path: 'admin/reports', component: ReportsComponent },
     ]),
     provideHttpClient(), 
   ],

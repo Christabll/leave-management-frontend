@@ -1,0 +1,83 @@
+<div class="report-container">
+  <div class="report-filters">
+    <div class="filter-group">
+      <label>Leave Type:
+        <select [(ngModel)]="selectedType" (change)="fetchReports()">
+          <option value="">All</option>
+          <option *ngFor="let type of leaveTypes" [value]="type">{{ type }}</option>
+        </select>
+      </label>
+      <label>Department:
+        <select [(ngModel)]="selectedDepartment" (change)="fetchReports()">
+          <option value="">All</option>
+          <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+        </select>
+      </label>
+      <label>Status:
+        <select [(ngModel)]="selectedStatus" (change)="fetchReports()">
+          <option value="">All</option>
+          <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+        </select>
+      </label>
+      <button class="export-btn" (click)="exportToCSV()">Export CSV</button>
+    </div>
+  </div>
+
+  <div class="report-table-wrapper">
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Leave Type</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reports">
+          <td>{{ report.employeeName }}</td>
+          <td>{{ report.employeeEmail }}</td>
+          <td>{{ report.department }}</td>
+          <td>{{ report.leaveType }}</td>
+          <td>{{ report.status }}</td>
+          <td>
+            <button class="details-btn" (click)="viewDetails(report)">View Details</button>
+          </td>
+        </tr>
+        <tr *ngIf="reports.length === 0">
+          <td colspan="8" class="no-data">No reports found for the selected filters.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="modal-backdrop" *ngIf="selectedReport" (click)="closeDetails()"></div>
+  <div class="modal" *ngIf="selectedReport">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3 class="modal-title">Report Details</h3>
+      <div class="modal-details">
+        <p><strong>Name:</strong> {{ selectedReport.employeeName }}</p>
+        <p><strong>Email:</strong> {{ selectedReport.employeeEmail }}</p>
+        <p><strong>Department:</strong> {{ selectedReport.department }}</p>
+        <p><strong>Leave Type:</strong> {{ selectedReport.leaveType }}</p>
+        <p><strong>Status:</strong> {{ selectedReport.status }}</p>
+        <p><strong>Start Date:</strong> {{ selectedReport.startDate }}</p>
+        <p><strong>End Date:</strong> {{ selectedReport.endDate }}</p>
+        <p><strong>Days:</strong> {{ selectedReport.days }}</p>
+        <p><strong>Reason:</strong> {{ selectedReport.reason }}</p>
+        <p>
+          <strong>Document:</strong>
+          <button *ngIf="selectedReport.documentUrl" (click)="viewDocument(selectedReport.documentUrl)">View Document</button>
+          <span *ngIf="!selectedReport.documentUrl">None</span>
+        </p>
+        <p><strong>Comment:</strong> {{ selectedReport.approverComment }}</p>
+      </div>
+      <div class="modal-actions">
+        <button class="close-btn" (click)="closeDetails()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
