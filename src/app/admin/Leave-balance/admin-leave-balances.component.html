@@ -99,63 +99,69 @@
       </div>
     
 
-      <div class="modal-backdrop" *ngIf="showAdjustModal"></div>
-      <div class="leave-adjust-modal" *ngIf="showAdjustModal">
-        <div class="modal-header">
-          <h4>Adjust Leave Balance</h4>
-          <button class="close-btn" (click)="closeModal()">&times;</button>
+    <!-- Modal for Adjusting Leave Balance -->
+  <div class="modal-backdrop" *ngIf="showAdjustModal"></div>
+  <div class="leave-adjust-modal" *ngIf="showAdjustModal">
+    <div class="modal-header">
+      <h4>Adjust Leave Balance</h4>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="leave-info">
+        <div class="leave-info-item">
+          <span class="label">Leave Type:</span>
+          <strong>{{ selectedBalance?.leaveType }}</strong>
         </div>
-        <div class="modal-body">
-          <div class="leave-info">
-            <div class="leave-info-item">
-              <span class="label">Leave Type:</span>
-              <strong>{{ selectedBalance?.leaveType }}</strong>
-            </div>
-            
-            <div class="leave-info-item">
-              <span class="label">Default Balance:</span>
-              <strong>{{ selectedBalance?.defaultBalance | number:'1.0-0' }}</strong>
-            </div>
-            
-            <div class="leave-info-item">
-              <span class="label">Current Used Days:</span>
-              <strong>{{ selectedBalance?.usedLeave | number:'1.0-0' }}</strong>
-            </div>
-            
-            <div class="leave-info-item">
-              <span class="label">Available Days:</span>
-              <strong>{{ selectedBalance?.remainingLeave }}</strong>
-            </div>
-            
-            <div class="leave-info-item">
-              <span class="label">Carry Over:</span>
-              <strong>{{ selectedBalance?.carryOver | number:'1.0-0' }}</strong>
-            </div>
-          </div>
-          
-          <div class="form-group adjustment-input">
-            <label for="usedDays">Adjust Used Days:</label>
-            <div class="input-with-controls">
-              <button class="btn btn-sm btn-outline-secondary" (click)="decrementUsedDays()">-</button>
-              <input type="number" id="usedDays" [(ngModel)]="newUsedDaysValue" min="0" step="1">
-              <button class="btn btn-sm btn-outline-secondary" (click)="incrementUsedDays()">+</button>
-            </div>
-            <div class="balance-preview" *ngIf="selectedBalance">
-              <span class="preview-label">New Available Days (Estimated):</span>
-              <span class="preview-value">{{ calculateNewRemainingAfterUsedAdjustment() }}</span>
-            </div>
-          </div>
-          
-          <div class="adjustment-reason">
-            <label for="adjustmentReason">Reason for Adjustment (Optional):</label>
-            <textarea id="adjustmentReason" [(ngModel)]="adjustmentReason" placeholder="E.g., Correction for missed leave tracking..." rows="2"></textarea>
-          </div>
+        <div class="leave-info-item">
+          <span class="label">Default Balance:</span>
+          <strong>{{ selectedBalance?.defaultBalance | number:'1.0-0' }}</strong>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" (click)="closeModal()">Cancel</button>
-          <button class="btn btn-primary" (click)="submitUsedDaysAdjustment()" [disabled]="isSubmitting">
-            {{ isSubmitting ? 'Saving...' : 'Save Changes' }}
-          </button>
+        <div class="leave-info-item">
+          <span class="label">Current Used Days:</span>
+          <strong>{{ selectedBalance?.usedLeave | number:'1.0-0' }}</strong>
+        </div>
+        <div class="leave-info-item">
+          <span class="label">Available Days:</span>
+          <strong>{{ selectedBalance?.remainingLeave }}</strong>
+        </div>
+        <div class="leave-info-item">
+          <span class="label">Carry Over:</span>
+          <strong>{{ selectedBalance?.carryOver | number:'1.0-0' }}</strong>
         </div>
       </div>
-    </section>
+     
+      <div class="form-group adjustment-input">
+        <label for="usedDays">Adjust Used Days:</label>
+        <div class="input-with-controls">
+          <button class="btn btn-sm btn-outline-secondary" (click)="decrementUsedDays()">-</button>
+          <input type="number" id="usedDays" [(ngModel)]="newUsedDaysValue" min="0" step="1">
+          <button class="btn btn-sm btn-outline-secondary" (click)="incrementUsedDays()">+</button>
+        </div>
+        <div class="balance-preview" *ngIf="selectedBalance">
+          <span class="preview-label">New Available Days (Estimated):</span>
+          <span class="preview-value">{{ calculateNewRemainingAfterUsedAdjustment() }}</span>
+        </div>
+      </div>
+      
+      <div class="form-group adjustment-input mt-3">
+        <label for="carryOver">Adjust Carry Over:</label>
+        <div class="input-with-controls">
+          <button class="btn btn-sm btn-outline-secondary" (click)="decrementCarryOver()">-</button>
+          <input type="number" id="carryOver" [(ngModel)]="newCarryOverValue" min="0" step="1">
+          <button class="btn btn-sm btn-outline-secondary" (click)="incrementCarryOver()">+</button>
+        </div>
+        <button class="btn btn-primary mt-2" (click)="submitCarryOverAdjustment()" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Saving...' : 'Save Carry Over' }}
+        </button>
+      </div>
+
+      <div class="adjustment-reason mt-3">
+        <label for="adjustmentReason">Reason for Adjustment (Optional):</label>
+        <textarea id="adjustmentReason" [(ngModel)]="adjustmentReason" placeholder="E.g., Correction for missed leave tracking..." rows="2"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+    </div>
+  </div>
+</section>
