@@ -508,7 +508,6 @@ export class AdminLeaveBalancesComponent implements OnInit {
       reason: this.adjustmentReason || 'Manual adjustment of used days by admin'
     };
     if (this.selectedBalance) {
-      const oldUsedDays = this.selectedBalance.usedLeave;
       this.selectedBalance.usedLeave = this.newUsedDaysValue;
       const defaultBalance = this.selectedBalance.defaultBalance || 0;
       const carryOver = this.selectedBalance.carryOver || 0;
@@ -532,12 +531,11 @@ export class AdminLeaveBalancesComponent implements OnInit {
         try {
           this.viewUserBalance(this.selectedUser!.id);
         } catch (err) {}
-        this.closeModal();
+        this.isSubmitting = false;
       },
       error: (err) => {
         alert('Warning: Server returned an error but the UI has been updated. Changes may not persist after refresh.');
         this.isSubmitting = false;
-        this.closeModal();
       }
     });
   }

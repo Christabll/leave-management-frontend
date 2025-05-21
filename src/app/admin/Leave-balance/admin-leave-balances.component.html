@@ -141,6 +141,9 @@
           <span class="preview-label">New Available Days (Estimated):</span>
           <span class="preview-value">{{ calculateNewRemainingAfterUsedAdjustment() }}</span>
         </div>
+        <button class="btn btn-primary mt-2" (click)="submitUsedDaysAdjustment()" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Saving...' : 'Save Used Days' }}
+        </button>
       </div>
       
       <div class="form-group adjustment-input mt-3">
