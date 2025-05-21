@@ -78,6 +78,17 @@ export const adminRoutes: Routes = [
               throw err;
             })
       },
+
+      {
+        path: 'public-holiday',
+        loadComponent: () =>
+          import('./Public Holidays/public-holidays.component')
+            .then(m => m.PublicHolidayComponent)
+            .catch(err => {
+              console.error('Failed to load PublicHolidayComponent:', err);
+              throw err;
+            })
+      }
     ]
   }
 ];

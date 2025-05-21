@@ -62,7 +62,7 @@ export class ApproveRejectLeaveComponent implements OnInit {
     }
     const token = localStorage.getItem('token');
     const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
-    this.http.get<any>(`${environment.adminApiUrl}/leave-requests/pending`, headers).subscribe({
+    this.http.get<any>(`${environment.managerApiUrl}/leave-requests/pending`, headers).subscribe({
       next: async (res) => {
         const requests = res.data || [];
         for (const req of requests) {
@@ -122,13 +122,13 @@ export class ApproveRejectLeaveComponent implements OnInit {
       return;
     }
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    const url = `${environment.adminApiUrl}/leave-requests/${this.selectedRequest.id}/${this.actionType}?comment=${encodeURIComponent(this.comment)}`;
+    const url = `${environment.managerApiUrl}/leave-requests/${this.selectedRequest.id}/${this.actionType}?comment=${encodeURIComponent(this.comment)}`;
   
     this.http.put(url, {}, { headers }).subscribe({
       next: (response: any) => {
         const updatedRequest = response.data;
         if (updatedRequest && updatedRequest.userId) {
-          this.http.get<any>(`${environment.adminApiUrl}/leave/balance/${updatedRequest.userId}`, { headers })
+          this.http.get<any>(`${environment.managerApiUrl}/leave/balance/${updatedRequest.userId}`, { headers })
           .subscribe({
             next: (balanceRes) => {
               this.updatedBalance = Array.isArray(balanceRes.data) ? balanceRes.data.map((item: any) => ({

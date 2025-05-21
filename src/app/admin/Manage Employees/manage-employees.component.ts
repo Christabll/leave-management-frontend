@@ -130,7 +130,7 @@ export class ManageEmployeesComponent implements OnInit {
     const token = localStorage.getItem('token');
     const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
 
-    this.http.get<any>(`${environment.adminApiUrl}/leave/balance/${user.id}`, headers).subscribe({
+    this.http.get<any>(`${environment.managerApiUrl}/leave/balance/${user.id}`, headers).subscribe({
       next: res => {
         this.selectedUserBalance = res.data;
         this.errorMessage = null;

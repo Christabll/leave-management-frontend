@@ -301,8 +301,8 @@ export class AdminLeaveBalancesComponent implements OnInit {
       return;
     }
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    this.http.get<any>(`${environment.adminApiUrl}/leave/balance/${userId}`, { headers }).subscribe({
-      next: (res) => {
+    this.http.get<any>(`${environment.managerApiUrl}/leave/balance/${userId}`, { headers }).subscribe({
+    next: (res) => {
         this.userBalance = Array.isArray(res.data) ? res.data.map((item: any) => {
           let leaveTypeId = null;
           if (item.leaveTypeId && !isNaN(Number(item.leaveTypeId))) {

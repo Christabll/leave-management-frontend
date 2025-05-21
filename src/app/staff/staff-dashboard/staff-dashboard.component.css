@@ -254,4 +254,23 @@
   cursor: pointer;
 }
 
+/* Center the card and set a max width */
+.card {
+  max-width: 1000px;
+  width: 100%;
+  margin: 40px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border-radius: 8px;
+  background: #fff;
+  padding: 24px 32px;
+  margin-left: 70px;
+}
+
+/* Make the table wider and centered */
+.card table {
+  width: 900px;
+  margin: 0 auto;
+  background: #fff;
+}
+
 

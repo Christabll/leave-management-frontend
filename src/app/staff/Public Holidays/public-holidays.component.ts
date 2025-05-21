@@ -13,7 +13,7 @@ interface PublicHoliday {
 @Component({
       selector: 'app-public-holiday',
       templateUrl: './public-holidays.component.html',
-      styleUrls: ['../admin-dashboard/admin-dashboard.component.css'],
+      styleUrls: ['../staff-dashboard/staff-dashboard.component.css'],
       standalone: true,
       imports: [CommonModule, FormsModule],
     })
