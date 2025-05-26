@@ -109,6 +109,7 @@ export class ManageEmployeesComponent implements OnInit {
     this.http.put(`${this.authApiUrl}/users/${user.id}/department`, body).subscribe({
       next: () => {
         this.showDepartmentEditor = null;
+        this.fetchUsers();
         this.errorMessage = null;
       },
       error: err => {

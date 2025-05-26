@@ -46,7 +46,7 @@ export class AdminLeaveBalancesComponent implements OnInit {
   selectedBalance: AdminLeaveBalanceDto | null = null;
   newBalanceValue: number = 0;
   newUsedDaysValue: number = 0;
-  newCarryOverValue: number = 0; // <-- Added for carry over adjustment
+  newCarryOverValue: number = 0; 
   adjustmentReason: string = '';
   isSubmitting: boolean = false;
   leaveTypesMap: Map<string, number> = new Map();
