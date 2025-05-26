@@ -6,7 +6,7 @@ export const adminRoutes: Routes = [
   {
     path: 'admin/dashboard',
     component: AdminDashboardComponent,
-    data: { roles: [ROLES.ADMIN, ROLES.MANAGER] },
+    data: { roles: [ROLES.ADMIN] },
     children: [
       { path: '', redirectTo: 'employees', pathMatch: 'full' },
       {

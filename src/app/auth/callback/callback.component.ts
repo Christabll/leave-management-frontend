@@ -44,7 +44,7 @@ export class CallbackComponent implements OnInit {
               if (role === ROLES.ADMIN) {
                 this.router.navigate(['/admin/dashboard']);
               } else if (role === ROLES.MANAGER) {
-                this.router.navigate(['/admin/dashboard']);
+                this.router.navigate(['/manager/dashboard']);
               } else if (role === ROLES.STAFF) {
                 this.router.navigate(['/staff/dashboard']);
               } else {

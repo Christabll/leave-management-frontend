@@ -1,0 +1,68 @@
+<div class="employees-container">
+  <h2>Manage Leave Types</h2>
+
+  <div *ngIf="errorMessage && !showAddForm" class="alert alert-danger" style="margin-bottom: 1rem;">
+    {{ errorMessage }}
+  </div>
+
+  <div class="balance-summary" style="margin-top: 30px;">
+    <h3>All Leave Types</h3>
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Leave Type</th>
+          <th>Default Balance (days)</th>
+          <th *ngIf="showAddForm"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Inline add row -->
+        <tr *ngIf="showAddForm">
+          <td>New</td>
+          <td>
+            <input [(ngModel)]="name" type="text" placeholder="e.g. Sick Leave" [disabled]="isSubmitting" />
+          </td>
+          <td>
+            <input [(ngModel)]="defaultBalance" type="number" min="0" [disabled]="isSubmitting" />
+          </td>
+          <td>
+            <button class="btn btn-green" (click)="createLeaveType()" [disabled]="!name || defaultBalance == null || isSubmitting">
+              {{ isSubmitting ? 'Saving...' : 'Save' }}
+            </button>
+            <button class="btn btn-secondary" (click)="closeAddForm()" [disabled]="isSubmitting">Cancel</button>
+          </td>
+        </tr>
+        
+        <tr *ngIf="showAddForm && errorMessage">
+          <td colspan="4">
+            <div class="alert alert-danger" style="margin-bottom: 10px;">{{ errorMessage }}</div>
+          </td>
+        </tr>
+       
+      
+        <tr *ngFor="let lt of leaveTypes; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ lt.name }}</td>
+          <td>{{ lt.defaultBalance }}</td>
+        </tr>
+        <tr *ngIf="leaveTypes.length === 0 && !showAddForm">
+          <td colspan="3" style="text-align: center; padding: 20px;">
+            No leave types added yet. Click the "+" button to add one.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <button
+    (click)="openAddForm()"
+    class="btn btn-green floating-add-button"
+    title="Add Leave Type"
+    style="font-size: 24px; border-radius: 50%; width: 50px; height: 50px; position: fixed; bottom: 30px; right: 30px; z-index: 999; background: #4CAF50; color: white; border: none; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);"
+    *ngIf="!showAddForm"
+  >
+    +
+  </button>
+</div>

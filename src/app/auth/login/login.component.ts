@@ -30,7 +30,7 @@ export class LoginComponent {
         if (primaryRole === ROLES.ADMIN) {
           this.router.navigate(['/admin/dashboard']);
         } else if (primaryRole === ROLES.MANAGER) {
-          this.router.navigate(['/admin/dashboard']); 
+          this.router.navigate(['/manager/dashboard']); 
         } else if (primaryRole === ROLES.STAFF) {
           this.router.navigate(['/staff/dashboard']);
         } else {

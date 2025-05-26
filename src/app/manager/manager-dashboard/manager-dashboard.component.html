@@ -1,0 +1,25 @@
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="profile">
+      <img [src]="avatarUrl" alt="Profile" />
+      <p class="role">{{ userRole }}</p>
+      <p class="text-sm text-gray-500">{{ userEmail }}</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a routerLink="employees" routerLinkActive="active">Manage Employees</a></li>
+        <li><a routerLink="approval" routerLinkActive="active">Approve & Reject Leave Request</a></li>
+        <li><a routerLink="leave-balances" routerLinkActive="active">Leave Balances</a></li>
+        <li><a routerLink="departments" routerLinkActive="active">Departments</a></li>
+        <li><a routerLink="leave-types" routerLinkActive="active">Leave Types</a></li>
+        <li><a routerLink="public-holiday" routerLinkActive="active">Public Holiday</a></li>
+      </ul>
+      
+    </nav>
+    <button (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+  </aside>
+  <main class="main-content">
+    <h1>Leave Management System - Admin Dashboard</h1>
+    <router-outlet></router-outlet>
+  </main>
+</div>

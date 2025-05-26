@@ -1,0 +1,30 @@
+<div class="card">
+      <div class="card-header">
+        <h2>Public Holidays</h2>
+        <!-- Optional: Year filter -->
+        <select [(ngModel)]="selectedYear" (change)="fetchHolidaysForYear()">
+          <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+        </select>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Holiday Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let holiday of holidays; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ holiday.date | date: 'longDate' }}</td>
+              <td>{{ holiday.name }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="holidays.length === 0" class="text-center text-muted">
+          No public holidays found for this year.
+        </div>
+      </div>
+    </div>
